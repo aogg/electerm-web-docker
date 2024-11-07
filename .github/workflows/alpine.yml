@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths: 
       - "./Dockerfile.alpine"
+      - "./Dockerfile.alpine.2"
       - ".github/workflows/alpine.yml"
       - "!**.md"
 
@@ -72,3 +73,21 @@ jobs:
         # Adds labels with git repository information to the built image
         labels: true          
 
+
+    - name: 构建与推送--alpine.2--临时
+      uses: docker/build-push-action@v3
+      with:
+        # Comma-delimited list of tags. These will be added to the registry/repository to form the image's tags
+        tags: ${{ secrets.USERNAME }}/electerm-web:temp
+        # Path to the Dockerfile (Default is '{path}/Dockerfile')
+        context: ./
+        file: "./Dockerfile.alpine.2"
+        # Always attempt to pull a newer version of the image
+        pull: true
+        push: true
+        # 构建参数
+        # build-args: |
+        #   FROM_ARG=node:11-alpine
+        #   APK_ARG=rsync
+        # Adds labels with git repository information to the built image
+        labels: true          
